@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <title>TSID 1:1 문의하기</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+        <meta name="google" content="notranslate" />
+        <link th:href="@{/css/qna-page.css}" type="text/css" rel="stylesheet" media="screen" />
+        <script th:src="@{/js/qna-page.min.js}"></script>
+    </head>
+    <body>
+        <div class="container">
+            <ul class="list">
+                <li class="item">
+                    <div class="description-area">
+                        TSID 보안 인증을 사용하시면서 궁금한 점을 문의하세요. 담당자가 확인 후 이메일로 답변을 드리겠습니다.
+                    </div>
+                </li>
+                <li class="item">
+                    <select name="qna-category" class="common-select">
+                        <option value="">문의 유형을 선택하세요.</option>
+                        <option value="본인 인증 및 요청">본인 인증 및 요청</option>
+                        <option value="동의 그룹 생성 및 관리">동의 그룹 생성 및 관리</option>
+                        <option value="기타">기타</option>
+                    </select>
+                </li>
+                <li class="item">
+                    <input name="qna-title" class="common-input" placeholder="문의 제목을 입력하세요." />
+                </li>
+                <li class="item">
+                    <input name="qna-email" class="common-input" placeholder="답변 받을 이메일 주소를 입력하세요." />
+                </li>
+                <li class="item">
+                    <textarea name="qna-content" class="common-textarea" placeholder="문의 내용을 입력하세요."></textarea>
+                </li>
+                <li class="item">
+                    <button name="qna-submit" class="common-button">작성완료</button>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 로딩 창 -->
+        <div class="loading-window">
+            <div class="content-area">
+                <div class="loading-icon-area">
+                    <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+                </div>
+                <div class="loading-message-area">
+                    요청 중입니다. 잠시만 기다려주세요.
+                </div>
+            </div>
+        </div>
+
+        <!-- 문의 작성 완료 팝업창 -->
+        <div class="qna-submit-complete-window">
+            <ul class="list" style="margin: 40px;">
+                <li class="item">
+                    <div class="complete-top-text-row">
+                        문의 내용이 접수되었습니다.
+                    </div>
+                </li>
+                <li class="item">
+                    <div class="complete-bottom-text-row">
+                        문의 내용은 담당자가 확인하여<br />
+                        '<span class="qna-writer-email"></span>' 으로<br />
+                        답변 드리도록 하겠습니다.
+                    </div>
+                </li>
+            </ul>
+
+            <div class="bottom-fixed-area">
+                <button name="qna-complete" class="common-button gray">완료</button>
+            </div>
+        </div>
+    </body>
+</html>

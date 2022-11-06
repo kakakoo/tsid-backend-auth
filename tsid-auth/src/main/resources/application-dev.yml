@@ -1,0 +1,80 @@
+server:
+  port: 8212
+  name: tsid-auth-dev
+
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: url
+    username: username
+    password: password
+  profiles:
+    active: dev
+    include:
+      - external-dev
+      - internal-dev
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+        dialect: org.hibernate.dialect.MySQL57Dialect
+  main:
+    allow-bean-definition-overriding: true
+  data:
+    web:
+      pageable:
+        default-page-size: 10
+        one-indexed-parameters: true
+  config:
+    use-legacy-processing: true
+
+logging:
+  level:
+    com:
+      amazonaws:
+        util:
+          EC2MetadataUtils: error
+    web:
+      debug
+    org:
+      hibernate:
+        type:
+          descriptor:
+            sql: trace
+
+elastic:
+  apm:
+    server-url: http://apm.tsidcert.com
+    application-package: com.tsid.auth
+    service-name: tsid-auth
+    environment: develop
+    log-level: ERROR
+    capture-body: all
+
+tsid:
+  fido:
+    auth: auth
+  sns:
+    url: url
+    auth: auth
+  versatile:
+    url: url
+
+auth:
+  temp:
+    key: key
+  di:
+    key: key
+
+
+jwt:
+  secret: secret
+
+rsa:
+  private:
+    key: key
+

@@ -1,0 +1,7 @@
+server:
+  port: 9898
+
+spring:
+  config:
+    activate:
+      on-profile: dev

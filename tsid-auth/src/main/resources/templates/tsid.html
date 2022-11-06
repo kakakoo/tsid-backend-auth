@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <title>TSID 로그인</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <meta name="google" content="notranslate" />
+    <link th:href="@{/css/tsid.css} + '?ver=0.0.3'" type="text/css" rel="stylesheet"  media="screen" />
+    <script th:src="@{/js/login-page.min.js} + '?ver=0.0.9'"></script>
+  </head>
+  <body>
+    <input type="hidden" id="hidden-token" th:value="${token}" />
+    <input type="hidden" id="hidden-customer-company-logo-url" value="" />
+    <input type="hidden" id="hidden-customer-company-name" th:value="${companyName}" />
+    <input type="hidden" id="hidden-customer-company-privacy-terms-link" th:value="${privacyTerm}" />
+    <input type="hidden" id="hidden-customer-company-service-terms-link" th:value="${useTerm}" />
+
+    <input type="hidden" id="hidden-alert-text-auth-time-expired-retry" th:value="#{time.expired}" />
+    <input type="hidden" id="hidden-alert-text-should-phone-input" th:value="#{login.web.placeholder}" />
+    <input type="hidden" id="hidden-alert-text-dash-except-should-phone-input" th:value="#{phone.input}" />
+    <input type="hidden" id="hidden-alert-text-re-confirm-phone" th:value="#{phone.retry}" />
+    <input type="hidden" id="hidden-alert-text-tsid-app-install-link-message-send-and-signup-start" th:value="#{send.link.url}" />
+    <input type="hidden" id="hidden-alert-text-phone-invalid-re-confirm" th:value="#{phone.not.correct}" />
+    <input type="hidden" id="hidden-alert-text-not-auth-complete-auth-after-retry" th:value="#{auth.not.complete.retry}" />
+    <input type="hidden" id="hidden-alert-text-tsid-not-auth" th:value="#{auth.not.complete}" />
+    <input type="hidden" id="hidden-alert-text-token-not-valid" th:value="#{token.expired}" />
+    <input type="hidden" id="hidden-alert-text-tsid-ios-app-updating" th:value="#{tsid.app.ios.click.alert.text}" />
+    <input type="hidden" id="hidden-alert-text-tsid-cert-deny" th:value="#{tsid.cert.deny}" />
+    <input type="hidden" id="hidden-alert-text-fatal-error" th:value="#{fatal.error}" />
+    <input type="hidden" id="hidden-alert-text-tsid-cert-notinstall-or-notlogged" th:value="#{tsid.cert.notinstall.or.notlogged}" />
+    <input type="hidden" id="hidden-alert-text-token-expired-and-history-back" th:value="#{token.expired.and.history.back}" />
+
+    <input type="hidden" id="hidden-versatile-url" th:value="${@environment.getProperty('tsid.versatile.url')}" />
+
+    <div class="full-fixed-center-container login-container">
+      <ul class="list">
+        <li class="item content-center" id="mobile-tsid-title-row" style="margin-bottom: 30px;" data-is-mobile="false">
+          <span class="text-style-a">TSID</span>
+        </li>
+        <li class="item" id="mobile-tsid-app-login-container" style="margin-bottom: 20px;" data-is-mobile="false">
+          <div class="container not-max-width blue-stroke">
+            <ul class="list">
+              <li class="item content-center" style="margin-bottom: 20px;">
+                  <span class="text-style-e">
+                    <p th:text="#{login.mobile.title.first}"></p> <br />
+                    <p th:text="#{login.mobile.title.second}"></p>
+                  </span>
+              </li>
+              <li class="item content-center">
+                <button class="button-style-a" id="mobile-tsid-app-login-button"><p th:text="#{login.mobile.button}"></p></button>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li class="item" id="by-tel-tsid-login-container" style="margin-bottom: 20px;" data-title="tel-login-row" data-is-mobile="false">
+          <div class="container not-max-width">
+            <ul class="list">
+              <li class="item content-center" id="pc-tsid-title-row" style="margin-bottom: 20px;" data-is-mobile="false">
+                <span class="text-style-a">TSID</span>
+              </li>
+              <li class="item content-center" id="mobile-tsid-phone-login-description-row" style="margin-bottom: 20px;" data-is-mobile="false">
+                <span class="text-style-d">
+                  <p th:text="#{login.web.title}"></p>
+                </span>
+              </li>
+              <li class="item" style="margin-bottom: 10px;">
+                <input class="input-style-a user-tel-element" id="user-tel-input" type="text" th:placeholder="#{login.web.placeholder}" />
+              </li>
+              <li class="item" style="margin-bottom: 10px;">
+                <input id="inputed-phone-remember-checkbox" class="checkbox-style-a" type="checkbox" style="margin-right: 6px;" />
+                <label for="inputed-phone-remember-checkbox">
+                  <span class="text-style-f"><p th:text="#{login.web.remember}"></p></span>
+                </label>
+              </li>
+              <li class="item" style="margin-bottom: 20px;">
+                <button class="button-style-b auth-request-button" id="tsid-auth-request-button" data-is-mobile="false"><p th:text="#{login.web.button}"></p></button>
+              </li>
+              <li class="item" style="text-align: center; justify-content: center;">
+                <span class="tsid-cert-not-come-tel-check text-style-d"><p style="white-space: pre-line;" th:text="#{tsid.cert.not.come.tel.check}"></p></span>
+              </li>
+              <li class="item content-center">
+                <a href="#" class="text-style-f" id="tsid-signup-button" style="display: none;"><p th:text="#{join}"></p></a>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li class="item" style="margin-bottom: 20px;">
+          <div class="container type-1">
+            <ul class="list horizontal">
+              <li class="item footer-menu-item">
+                <a th:href="${@environment.getProperty('tsid.versatile.url') + '/app/terms/use'}" class="text-style-f" target="_blank"><p th:text="#{footbar.use.term}"></p></a>
+              </li>
+              <li class="item footer-menu-item">
+                <div class="footer-menu-division"></div>
+              </li>
+              <li class="item footer-menu-item" target="_blank">
+                <a th:href="${@environment.getProperty('tsid.versatile.url') + '/app/terms/privacyPolicy'}" class="text-style-f" target="_blank"><p th:text="#{footbar.privacy.term}"></p></a>
+              </li>
+<!--              <li class="item footer-menu-item">-->
+<!--                <div class="footer-menu-division"></div>-->
+<!--              </li>-->
+<!--              <li class="item footer-menu-item">-->
+<!--                <a href="#" class="text-style-f"><p th:text="#{footbar.management.term}"></p></a>-->
+<!--              </li>-->
+<!--              <li class="item footer-menu-item">-->
+<!--                <div class="footer-menu-division"></div>-->
+<!--              </li>-->
+<!--              <li class="item footer-menu-item">-->
+<!--                <a href="#" class="text-style-f"><p th:text="#{footbar.customer.service}"></p></a>-->
+<!--              </li>-->
+<!--              <li class="item footer-menu-item">-->
+<!--                <div class="footer-menu-division"></div>-->
+<!--              </li>-->
+<!--              <li class="item footer-menu-item">-->
+<!--                <a href="#" class="text-style-f"><p th:text="#{footbar.responsibility.term}"></p></a>-->
+<!--              </li>-->
+            </ul>
+          </div>
+        </li>
+        <li class="item content-center" style="margin-bottom: 40px;">
+          <span class="text-style-g"><span class="copy-right-text">Copyright</span> © TSID Corp. All Rights Reserved.</span>
+        </li>
+        <li class="item content-center" style="margin-bottom: 20px;">
+          <span class="text-style-k"><p th:text="#{download.app}"></p></span>
+        </li>
+        <li class="item content-center">
+          <ul class="list horizontal">
+            <li class="item" style="margin-right: 20px;">
+              <a href="https://play.google.com/store/apps/details?id=com.tsidtech.auth" target="_blank" id="tsid-app-android-link-button">
+                <img class="app-download-link-img" th:src="@{/images/tsid-android-img.png}" alt="TSID 안드로이드 앱 다운로드 링크 이미지" title="TSID 안드로이드 앱 다운로드 링크 이미지" />
+              </a>
+            </li>
+            <li class="item">
+              <a href="#" id="tsid-app-ios-link-button">
+                <img class="app-download-link-img" th:src="@{/images/tsid-ios-img.png}" alt="TSID 아이폰 앱 다운로드 링크 이미지" title="TSID 아이폰 앱 다운로드 링크 이미지" />
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <!-- 인증 요청 체크 팝업창 START -->
+    <div class="full-fixed-center-container background-half-dark" id="auth-checking-popup" style="display: none;">
+      <div class="container type-2">
+        <ul class="list">
+          <li class="item content-center" style="margin-bottom: 20px;">
+            <span class="text-style-a" style="letter-spacing: -0.5px"><p th:text="#{process.auth}"></p></span>
+          </li>
+          <li class="item content-center" style="margin-bottom: 20px;">
+              <span class="text-style-b">
+                <p th:text="#{send.phone}"></p>
+                <p th:text="#{progress.auth}"></p>
+              </span>
+          </li>
+          <li class="item content-center" style="margin-bottom: 20px;">
+            <span class="text-style-c" id="auth-check-counting-time-text">03:00</span>
+          </li>
+          <li class="item content-center" style="margin-bottom: 20px;">
+            <div class="lds-spinner-a94jchdk"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+          </li>
+          <li class="item content-center" style="margin-bottom: 20px;">
+            <span class="cert-status-text-item">인증 현황 : </span>
+            <span class="cert-status-text-item" id="cert-count">0</span>
+            <span class="cert-status-text-item">/</span>
+            <span class="cert-status-text-item" id="total-count">5</span>
+          </li>
+          <li class="item" style="margin-bottom: 8px;">
+            <button class="button-style-a auth-request-button" id="auth-check-button"><p th:text="#{completed}"></p></button>
+          </li>
+          <li class="item">
+            <button class="button-style-b auth-request-button" id="auth-check-popup-close-button"><p th:text="#{close}"></p></button>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- 인증 요청 체크 팝업창 END -->
+
+    <!-- 정보 제공 동의 체크 팝업창 START -->
+    <div class="full-fixed-center-container background-half-dark" id="info-agree-check-popup" style="display: none;">
+      <div class="container type-3">
+        <ul class="list">
+          <li class="item content-center" id="customer-company-logo-image-row" style="display: none; margin-bottom: 10px;">
+            <img id="customer-company-logo-image" alt="로고 이미지" title="로고 이미지" />
+          </li>
+          <li class="item" style="margin-bottom: 30px;">
+            <div class="stroke-type-1"></div>
+          </li>
+          <li class="item content-center" style="margin-bottom: 30px;">
+            <div class="text-style-h">
+              <strong>TSID</strong> <span class="text-style-i customer-company-full-names"></span> <p th:text="#{share.info}"></p>
+            </div>
+          </li>
+          <li class="item content-center" style="margin-bottom: 30px;">
+            <div id="permission-content-container">
+              <ul class="list-type-a text-style-j">
+                <li class="item">
+                  <div class="square-box"></div>
+                  <span><p th:text="#{mobile.number}"></p></span>
+                </li>
+                <li class="item">
+                  <div class="square-box"></div>
+                  <span><p th:text="#{name}"></p></span>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="item content-center" style="margin-bottom: 20px;">
+            <div class="text-style-b" style="text-align: left;">
+              <p th:text="#{share.agree.first}"></p>
+              <span class="customer-company-full-names"></span> <p th:text="#{share.agree.second}"></p>
+              <!-- <span class="customer-company-full-names"></span>의
+              <span><a id="customer-company-privacy-terms-link" href="#" target="_blank">개인정보처리방침</a></span> 및
+              <span><a id="customer-company-service-terms-link" href="#" target="_blank">서비스 약관</a></span>을 확인하세요. -->
+            </div>
+          </li>
+          <li class="item content-center">
+            <ul class="list horizontal" style="width: 100%;">
+              <li class="item" style="width: calc((100% - 10px) / 2); margin-right: 10px;">
+                <button class="button-style-b not-padding height-type-a" id="tsid-login-not-agree-button"><p th:text="#{dont.agree}"></p></button>
+              </li>
+              <li class="item" style="width: calc((100% - 10px) / 2);">
+                <button class="button-style-a not-padding height-type-a" id="tsid-login-yes-agree-button"><p th:text="#{do.agree}"></p></button>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- 정보 제공 동의 체크 팝업창 END -->
+
+
+    <!-- TSID 앱으로 로그인 클릭 시 보여줄 팝업창 START -->
+    <div class="full-fixed-center-container background-half-dark" id="tsid-app-login-auth-check-popup" style="display: none;">
+      <div class="container type-3">
+        <ul class="list">
+          <li class="item content-center" style="margin-bottom: 20px;">
+            <span class="text-style-h" style="letter-spacing: -0.5px"><p th:text="#{login.process.title}"></p></span>
+          </li>
+          <li class="item content-center">
+            <span class="text-style-b" style="letter-spacing: -0.5px; margin-bottom: 20px;">
+              <p th:text="#{login.process.message}"></p>
+            </span>
+          </li>
+          <li class="item content-center">
+            <ul class="list horizontal" style="width: 100%;">
+              <li class="item" style="width: calc((100% - 10px) / 2); margin-right: 10px;">
+                <button class="button-style-b not-padding height-type-a" id="tsid-app-login-cancel-button"><p th:text="#{login.process.close}"></p></button>
+              </li>
+              <li class="item" style="width: calc((100% - 10px) / 2);">
+                <button class="button-style-a not-padding height-type-a" id="tsid-app-login-complete-button"><p th:text="#{login.process.done}"></p></button>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- TSID 앱으로 로그인 클릭 시 보여줄 팝업창 START -->
+
+    <!-- TSID 앱으로 로그인 클릭 시 보여줄 안내 팝업창 START -->
+    <div class="full-fixed-center-container background-half-dark" id="tsid-app-login-click-after-popup" style="display: none;">
+      <div class="container type-3">
+        <ul class="list">
+          <li class="item content-center" style="margin-bottom: 50px;">
+            TSID 
+          </li>
+          <li class="item content-center" style="margin-bottom: 10px;">
+            사용자 확인 중...
+          </li>
+          <li class="item content-center" style="margin-bottom: 20px;">
+            잠시만 기다려주세요.
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- TSID 앱으로 로그인 클릭 시 보여줄 안내 팝업창 END -->
+  </body>
+</html>
